@@ -16,10 +16,10 @@ class Auth():
         resp = mongo.db.users.find_one({
             "email":data['email']
         })
-
+        print(resp)
         if resp: 
             return jsonify({
-                "error":"Invalid credentials"
+                "error":"Invalid credentialss"
         })  
         #querying mongo
 
@@ -38,21 +38,22 @@ class Auth():
         res.set_cookie("JWT",token)
         return res
 
-    def login():
+    def login(self):
         
         data = request.get_json()
 
-        data = mongo.db.users.find_one({
+        user = mongo.db.users.find_one({
             "email":data['email']
         })
+        print(user)
         #validating user
-        if not data:
+        if not user:
             return jsonify({
                 "error":"Not valid"
             })
-        data['_id'] = str(data['_id'])
+        data['_id'] = str(user['_id'])
         #pass match
-        if data['password'] != data['password']:
+        if data['password'] != user['password']:
             return jsonify("invalid password")
 
         #create jwt
