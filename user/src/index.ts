@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, response } from "express";
 import cors from "cors";
 import { connect } from "mongoose";
 const app = express();
@@ -6,6 +6,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.get("/api/user", (req, res) => {
+  res.json("server is running...");
+});
 (async () => {
   try {
     connect("mongodb://172.17.0.2:27017/userDatabase");
@@ -17,7 +20,3 @@ app.use(cors());
     console.log(err);
   }
 })();
-
-app.listen(5000, () => {
-  console.log("listening on port 5000");
-});

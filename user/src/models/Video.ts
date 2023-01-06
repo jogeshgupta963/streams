@@ -1,5 +1,19 @@
 import mongoose from "mongoose";
 
+enum Genre {
+  horror = "horror",
+  comedy = "comedy",
+  thriller = "thriller",
+  scifi = "sci-fi",
+}
+interface VideoDoc extends mongoose.Document {
+  name: string;
+  released: string;
+  video: string;
+  description: string;
+  genre: Genre;
+}
+
 const VideoSchema = new mongoose.Schema(
   {
     name: {
@@ -20,7 +34,7 @@ const VideoSchema = new mongoose.Schema(
     },
     genre: [
       {
-        enum: ["horror", "comedy", "thriller", "sci-fi"],
+        enum: Genre,
       },
     ],
   },
@@ -34,6 +48,6 @@ const VideoSchema = new mongoose.Schema(
   }
 );
 
-const Video = mongoose.model("Video", VideoSchema);
+const Video = mongoose.model<VideoDoc>("Video", VideoSchema);
 
 export default Video;
