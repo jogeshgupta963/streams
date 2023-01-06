@@ -1,6 +1,8 @@
 import express from "express";
-import { getAllVideos } from "../controllers/video";
+import { getAllVideos, getVideoById, wishList } from "../controllers/video";
 
 const router = express.Router();
 
-router.route("/video").get(getAllVideos);
+router.route("/").get(getAllVideos);
+router.route("/:id").get(getVideoById).post(wishList);
+export { router as videoRouter };
