@@ -24,3 +24,10 @@ spec:
                 name: user-srv
                 port:
                   number: 5000
+          - path: /api/admin/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-srv
+                port:
+                  number: 5000

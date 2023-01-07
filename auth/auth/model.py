@@ -22,18 +22,17 @@ class Auth():
                 "error":"Invalid credentialss"
         })  
         #querying mongo
-
+        data['isAdmin'] = True
         resp = mongo.db.users.insert_one(data)
         data['_id'] = str(resp.inserted_id)
 
         #gen jwt
 
         token = jwt.encode({
-             "id":data['_id'],
-             "email":data['email']
-             },
-             "zxcvbnm","HS256")
-
+            "id":data['_id'],
+            "email":data['email'],
+            "isAdmin":data['isAdmin']
+        },'zxcvbnm',"HS256")
         res = make_response(data)
         res.set_cookie("JWT",token)
         return res
@@ -59,7 +58,8 @@ class Auth():
         #create jwt
         token = jwt.encode({
              "id":data['_id'],
-             "email":data['email']
+             "email":data['email'],
+             'isAdmin':data['isAdmin']
              },"zxcvbnm","HS256")
         res = make_response(data)
         # generating cookie

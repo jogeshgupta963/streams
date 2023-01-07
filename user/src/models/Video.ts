@@ -34,7 +34,7 @@ const VideoSchema = new mongoose.Schema(
     },
     genre: [
       {
-        enum: Genre,
+        enum: Object.keys(Genre),
       },
     ],
   },

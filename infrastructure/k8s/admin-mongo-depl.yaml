@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user-mongo-depl
+  name: admin-mongo-depl
 spec:
   replicas: 1
   strategy:
@@ -12,11 +12,11 @@ spec:
   minReadySeconds: 5
   selector:
     matchLabels:
-      app: user-mongo
+      app: admin-mongo
   template:
     metadata:
       labels:
-        app: user-mongo
+        app: admin-mongo
     spec:
       containers:
         - name: mongo
@@ -24,18 +24,17 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 27017
-          
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: user-mongo-srv
+  name: admin-mongo-srv
 spec:
   type: ClusterIP
   selector:
-    app: user-mongo
+    app: admin-mongo
   ports:
-    - name: user-mongo
+    - name: admin-mongo
       protocol: TCP
       port: 27017
       targetPort: 27017

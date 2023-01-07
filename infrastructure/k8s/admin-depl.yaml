@@ -1,35 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user-depl
+  name: admin-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: user
+      app: admin
   template:
     metadata:
       labels:
-        app: user
+        app: admin
     spec:
       containers:
-        - name: user
-          image: jogeshgupta963/user
+        - name: admin
+          image: jogeshgupta963/admin
           imagePullPolicy: Never
-          env:
-            - name: MONGO_URI
-              value: 'mongodb://user-mongo-srv:27017/user'
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: user-srv
+  name: admin-srv
 spec:
   selector:
-    app: user
+    app: admin
   type: ClusterIP
   ports:
-    - name: user
+    - name: admin
       protocol: TCP
       port: 5000
       targetPort: 5000
