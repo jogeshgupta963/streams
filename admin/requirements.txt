@@ -4,3 +4,5 @@ pyjwt
 Flask-Cors
 python-dotenv
 virtualenv
+boto3
+pika
