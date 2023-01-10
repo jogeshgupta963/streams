@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-enum Genre {
+export enum Genre {
   horror = "horror",
   comedy = "comedy",
   thriller = "thriller",
@@ -32,11 +32,9 @@ const VideoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    genre: [
-      {
-        enum: Object.keys(Genre),
-      },
-    ],
+    genre: {
+      enum: Object.keys(Genre),
+    },
   },
   {
     toJSON: {

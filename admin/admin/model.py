@@ -2,7 +2,7 @@ from flask import request,jsonify,make_response
 from extentions import mongo
 import boto3
 from werkzeug.utils import secure_filename
-from producer import publish
+from publisher import publish
 
 
 
@@ -24,6 +24,7 @@ class Admin():
             return jsonify({
                 "error":"Invalid data"
         })
+        print("file get")
         #getting video
         vid = request.files['video']
         if not vid:
@@ -38,13 +39,14 @@ class Admin():
                 "ContentType": vid.content_type
             })
         
-        
+        print("to iinsert")
         #querying mongo
         data['video'] = data['name']
-        resp = mongo.db.users.insert_one(data)
+        resp = mongo.db.videos.insert_one(data)
         data['_id'] = str(resp.inserted_id)
+        
+        print(data)
         publish('video-created',data)
-        # print(data)
         # res = make_response(data)
         
         return data

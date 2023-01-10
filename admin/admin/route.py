@@ -12,3 +12,6 @@ def createVideo():
     return video.createVideo()
 
 
+# @admin.route('/api/admin',methods=['GET'])
+# def indexRoute():
+#     return "server is running"
