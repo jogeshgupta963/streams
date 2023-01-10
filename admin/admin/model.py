@@ -17,14 +17,12 @@ class Admin():
         BUCKET_NAME='blogportalwebsite'
 
          # reading req 
-        # data = request.get_json()
         data= request.form.to_dict()
         # validating data
         if not data['name'] and not data['released'] and not data['description'] and not data['genre'] :
             return jsonify({
                 "error":"Invalid data"
         })
-        print("file get")
         #getting video
         vid = request.files['video']
         if not vid:
@@ -39,15 +37,13 @@ class Admin():
                 "ContentType": vid.content_type
             })
         
-        print("to iinsert")
         #querying mongo
         data['video'] = data['name']
         resp = mongo.db.videos.insert_one(data)
         data['_id'] = str(resp.inserted_id)
         
         print(data)
-        publish('video-created',data)
-        # res = make_response(data)
+        publish('video:created',data)
         
         return data
 

@@ -5,7 +5,7 @@ params = pika.URLParameters(url)
 connection = pika.BlockingConnection(params)
 channel = connection.channel()
 
-def publish(method,body):
-    properties = pika.BasicProperties(method)
+def publish(queueName,body):
+    # properties = pika.BasicProperties(method)
     
-    channel.basic_publish(exchange='',routing_key='admin',body=json.dumps(body),properties=properties)
+    channel.basic_publish(exchange='',routing_key=queueName,body=json.dumps(body))

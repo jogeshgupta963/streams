@@ -28,7 +28,6 @@ export class VideoCreatedListener {
     });
   }
   async onMessage(data: VideoDoc, msg: any) {
-    console.log(msg, "from video:created");
     const video = new Video({
       _id: data._id,
       name: data.name,
